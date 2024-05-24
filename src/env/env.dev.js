@@ -1,3 +1,3 @@
-export const env = {
-  host: "localhost:8000",
+export default {
+  host: "http://localhost:8000/api",
 };

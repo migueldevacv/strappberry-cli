@@ -1,3 +1,3 @@
 import AuthRoutes from "./auth.routes";
-
-export { AuthRoutes };
+import AuthView from "./AuthView";
+export { AuthRoutes, AuthView };

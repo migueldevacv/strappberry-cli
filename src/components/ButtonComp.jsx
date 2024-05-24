@@ -1,3 +1,4 @@
+import { Colors } from "@core/Colors";
 import { Button, Tooltip } from "@mui/material";
 
 export default function ButtonComp({ color, disabled = false, onClick = () => { }, label = '', style = {}, className = '', tooltip = '' }) {
@@ -8,12 +9,13 @@ export default function ButtonComp({ color, disabled = false, onClick = () => { 
                     variant="contained"
                     style={{
                         ...style,
-                        backgroundColor: color ? color : (!disabled) ? '#1B2654' : '#7c7c7c',
+                        backgroundColor: color ? color : (!disabled) ? Colors.blue : '#7c7c7c',
                         color: 'white',
-                        marginTop: '2vh',
-                        height: '45px',
-                        borderRadius: '12px',
-                        width: '100%'
+                        height: '35px',
+                        borderRadius: '5px',
+                        width: '100%',
+                        boxShadow: 'transparent',
+                        fontSize: '10px',
                     }}
                     className={className}
                     disabled={disabled}
@@ -28,6 +30,7 @@ export default function ButtonComp({ color, disabled = false, onClick = () => { 
                 variant="contained"
                 style={{
                     backgroundColor: '#7c7c7c',
+                    fontSize: '10px',
                     color: 'white',
                     marginTop: '2vh',
                     height: '45px',

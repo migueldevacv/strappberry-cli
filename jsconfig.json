@@ -21,11 +21,14 @@
         // "noFallthroughCasesInSwitch": true,
         "baseUrl": ".",
         "paths": {
+            "@env/*": ["./src/env/*"],
             "@admin/*": ["./src/modules/Admin/*"],
+            "@client/*": ["./src/modules/Client/*"],
             "@auth/*": ["./src/modules/Auth/*"],
             "@assets/*": ["./src/assets/*"],
             "@components/*": ["./src/components/*"],
             "@core/*": ["./src/core/*"],
+            "@services/*": ["./src/services/*"],
         }
     },
     "include": ["src", "src/*"],

@@ -1,4 +1,4 @@
-import request from "@/utils";
+import { Auth } from ".";
 
 
 async function request(url, method = 'GET', body = {}, customMessage = { enabled: false, error: {}, success: {} }) {
@@ -6,6 +6,21 @@ async function request(url, method = 'GET', body = {}, customMessage = { enabled
         .then(response => response.json())
 
     return response;
+}
+
+export function requestBody(method = 'GET', body = {}) {
+    const reqBody = {
+        method: method,
+        headers: { "Content-Type": "application/json" }
+    }
+
+    if (Auth.getToken())
+        reqBody.headers["Authenticate"] = `Bearer ${Auth.getToken()}`
+
+    if (method !== 'GET' && method !== 'DELETE') {
+        reqBody.body = JSON.stringify(body)
+    }
+    return reqBody;
 }
 
 export class Request {

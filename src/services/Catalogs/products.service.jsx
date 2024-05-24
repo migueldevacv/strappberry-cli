@@ -1,8 +1,9 @@
 import { Request } from "@core/Request";
+import { Env } from "@env/mainEnv";
 
-export default class ProductService {
+export class ProductService {
+    static route = `${Env.host}/products`
 
-    static async getAllProducts() {
-        return await Request._get(env)
-    }
+    static getAllProducts = async () => await Request._get(this.route)
+
 }

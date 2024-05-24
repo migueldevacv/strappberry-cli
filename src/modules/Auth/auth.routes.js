@@ -5,13 +5,17 @@ import Register from "./Register/Register";
 const routes = [
   {
     path: "login",
-    element: Login(),
-    // element: lazy(() => import("./Login/Login")),
+    lazy: () =>
+      import("./Login/Login").then((module) => ({
+        Component: module.default,
+      })),
   },
   {
     path: "register",
-    element: Register(),
-    // lazy: () => import("./Register/Register"),
+    lazy: () =>
+      import("./Register/Register").then((module) => ({
+        Component: module.default,
+      })),
   },
 ];
 export default routes;
