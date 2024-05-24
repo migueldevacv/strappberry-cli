@@ -24,6 +24,8 @@
             "@admin/*": ["./src/modules/Admin/*"],
             "@auth/*": ["./src/modules/Auth/*"],
             "@assets/*": ["./src/assets/*"],
+            "@components/*": ["./src/components/*"],
+            "@core/*": ["./src/core/*"],
         }
     },
     "include": ["src", "src/*"],

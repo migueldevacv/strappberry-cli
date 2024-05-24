@@ -10,6 +10,8 @@ export default defineConfig({
       "@admin": path.resolve(__dirname, "./src/modules/Admin"),
       "@auth": path.resolve(__dirname, "./src/modules/Auth"),
       "@assets": path.resolve(__dirname, "./src/assets"),
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@core": path.resolve(__dirname, "./src/core"),
       // "@utils": path.resolve(__dirname, "./src/app/utils"),
       // "@modules": path.resolve(__dirname, "./src/app/modules"),
       // "@": path.resolve(__dirname, "./src")
