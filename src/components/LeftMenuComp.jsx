@@ -3,7 +3,7 @@ import { useContext, useEffect, useReducer } from "react";
 import { } from "@assets/index";
 import { ButtonComp, IconComp } from "@components/index";
 import { Box, Button, CssBaseline, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Colors } from "@core/Colors";
 import { Auth } from "@core/index";
 import { MenusService } from "@services/index";
@@ -20,6 +20,7 @@ const reducer = (state, action) => {
 
 const initialState = {
     userMenus: [],
+    menusSearched: false
 }
 
 export default function LeftMenuComp({ children }) {
@@ -28,14 +29,13 @@ export default function LeftMenuComp({ children }) {
 
 
     const getMenus = async () => {
-        const response = await MenusService.getAllMenus()
-
-        console.log(response.data);
-        dispatch({
-            type: 'SET_USER_MENUS',
-            payload: response.data
-        })
-
+        if (menuState.userMenus.length == 0) {
+            const response = await MenusService.getAllMenus()
+            dispatch({
+                type: 'SET_USER_MENUS',
+                payload: response.data
+            })
+        }
     }
 
     const logout = () => Auth.logout(location)
@@ -45,7 +45,7 @@ export default function LeftMenuComp({ children }) {
     }, [])
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <div className="w-[100vw] h-[100vh] flex">
             <CssBaseline />
             <Drawer
                 sx={{
@@ -72,15 +72,14 @@ export default function LeftMenuComp({ children }) {
                     <div className="px-5 py-3"><Divider color="white" /></div>
                     <List>
                         {menuState.userMenus.map((menu, index) => (
-                            <ListItem key={index} disablePadding>
-                                <ListItemButton className="!text-white">
-                                    {/* <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon> */}
-                                    <IconComp icon={menu.icon} />
-                                    <ListItemText primary={menu.title} />
-                                </ListItemButton>
-                            </ListItem>
+                            <Link key={index} to={menu.url}>
+                                <ListItem key={index} disablePadding>
+                                    <ListItemButton className="!text-white">
+                                        <IconComp icon={menu.icon} />
+                                        <ListItemText primary={menu.title} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
                 </div>
@@ -93,13 +92,10 @@ export default function LeftMenuComp({ children }) {
                     </div>
                 </div>
             </Drawer>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-            >
+            <div className="w-full flex flex-col px-5 py-3">
                 {children}
                 <Outlet />
-            </Box>
-        </Box>
+            </div>
+        </div>
     )
 } 

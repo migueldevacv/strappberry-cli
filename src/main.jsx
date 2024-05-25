@@ -2,6 +2,8 @@ import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 // import App from './App.jsx'
 import './index.css'
+import { PrimeReactProvider } from 'primereact/api';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { BrowserRouter, createBrowserRouter, Navigate, Route, RouterProvider, Routes } from 'react-router-dom'
 import { AuthRoutes, AuthView } from '@auth/index.js'
 import { AdminRoutes } from '@admin/index.js'
@@ -23,8 +25,8 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    // element: Auth.isLogged().status ? <AdminView /> : <Navigate to={'/auth/login'} />,
-    element: <AdminView />,
+    element: Auth.isLogged().status ? <AdminView /> : <Navigate to={'/auth/login'} />,
+    // element: <AdminView />,
     children: AdminRoutes,
   },
   {
@@ -41,6 +43,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <PrimeReactProvider>
+      <RouterProvider router={router} />
+    </PrimeReactProvider>
   </React.StrictMode>,
 )

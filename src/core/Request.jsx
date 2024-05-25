@@ -2,9 +2,16 @@ import { Auth } from ".";
 
 
 async function request(url, method = 'GET', body = {}, customMessage = { enabled: false, error: {}, success: {} }) {
-    const response = fetch(url, requestBody(method, body))
-        .then(response => response.json())
+    const response = await fetch(url, requestBody(method, body))
+        .then(response => {
+            if (response.status != 403)
+                return response.json()
+            else
+                Auth.logout()
+        })
 
+    if (!response.status)
+        window.alert(response.errors[0]);
     return response;
 }
 
@@ -15,9 +22,10 @@ export function requestBody(method = 'GET', body = {}) {
     }
 
     if (Auth.getToken())
-        reqBody.headers["Authenticate"] = `Bearer ${Auth.getToken()}`
+        reqBody.headers["Authorization"] = `Bearer ${Auth.getToken()}`
 
     if (method !== 'GET' && method !== 'DELETE') {
+        console.log(1, body);
         reqBody.body = JSON.stringify(body)
     }
     return reqBody;
@@ -37,6 +45,6 @@ export class Request {
     }
 
     static async _delete(url = '', message = {}) {
-        return await request(url, 'GET', {}, { enabled: true, ...message })
+        return await request(url, 'DELETE', {}, { enabled: true, ...message })
     }
 }

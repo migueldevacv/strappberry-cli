@@ -1,4 +1,5 @@
 import IconComp from "./IconComp";
 import ButtonComp from "./ButtonComp";
+import { TableComp } from "./TableComp";
 
-export { IconComp, ButtonComp };
+export { IconComp, ButtonComp, TableComp };

@@ -1,16 +1,15 @@
-import { ProductService } from "@services/index";
+import { UsersService } from "@services/index";
 import { TableComp } from "@components/index";
 import { useEffect, useState } from "react";
 import DialogComp from "@components/DialogComp";
-import { Formatters } from "@core/index";
 
-export default function Products() {
-    const [states, setStates] = useState({ products: [], open: false })
+export default function Users() {
+    const [states, setStates] = useState({ users: [], open: false })
     const [data, setData] = useState({})
 
-    const getProductList = async () => {
-        const response = await ProductService.getAllProducts()
-        setStates(prev => ({ ...prev, products: response.data }))
+    const getUsersList = async () => {
+        const response = await UsersService.getAllUsers()
+        setStates(prev => ({ ...prev, users: response.data }))
     }
 
     const onChangeFunc = ({ target: { value, name } }) => setData(prev => ({
@@ -19,39 +18,39 @@ export default function Products() {
     }))
 
     const submit = async (newData = data) => {
-        !newData.id && await ProductService.post(newData)
-        newData.delete && await ProductService.drop(newData.id)
-        newData.edit && await ProductService.edit(newData.id, newData)
+        !newData.id && await UsersService.post(newData)
+        newData.delete && await UsersService.drop(newData.id)
+        newData.edit && await UsersService.edit(newData.id, newData)
         setData({})
-        getProductList()
+        getUsersList()
         setStates(prev => ({ ...prev, open: false }))
     }
 
     useEffect(() => {
-        getProductList()
+        getUsersList()
     }, [])
 
     return (<>
         <div className="flex w-full gap-5 justify-center">
             <TableComp
-                data={states.products}
-                add={() => setStates({ ...states, open: true })}
+                data={states.users}
                 edit={(e) => {
                     setData(e)
                     setStates({ ...states, open: true })
                 }}
                 drop={(e) => submit(e)}
+                add={() => setStates({ ...states, open: true })}
                 columns={[
                     { header: 'Name', accessor: 'name' },
-                    { header: 'Description', accessor: 'description' },
-                    { header: 'Price', accessor: 'price', dataType: 'numeric', body: ({ price }) => `$ ${Formatters.moneyFormat(price)}` },
+                    { header: 'Email', accessor: 'email' },
                     { header: 'Status', accessor: 'status' },
-                    { header: 'Category', accessor: 'category_id' },
+                    { header: 'Role', accessor: 'role_id' },
                 ]}
             />
+
             <DialogComp
                 dialogProps={{
-                    model: 'producto',
+                    model: 'usuario',
                     width: 'sm',
                     openState: states.open,
                     actionState: data.id ? 'edit' : 'create',
@@ -72,23 +71,24 @@ export default function Products() {
                     },
                     {
                         input: true,
-                        label: 'Description',
-                        name: 'description',
-                        value: data.description,
+                        label: 'Email',
+                        name: 'email',
+                        value: data.email,
                         onChangeFunc: onChangeFunc
                     },
                     {
                         input: true,
-                        label: 'Category',
-                        name: 'category_id',
-                        value: data.category_id,
+                        label: 'Role',
+                        name: 'role_id',
+                        value: data.role_id,
                         onChangeFunc: onChangeFunc
                     },
                     {
                         input: true,
-                        label: 'Price',
-                        name: 'price',
-                        value: data.price,
+                        label: 'Password',
+                        name: 'password',
+                        type: 'password',
+                        value: data.password,
                         onChangeFunc: onChangeFunc
                     },
                 ]}

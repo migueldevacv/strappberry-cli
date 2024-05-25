@@ -40,7 +40,7 @@ export default function Register() {
             label="Confirmar contraseña"
             type="password"
             onChange={onChangeInput}
-            value={data.password} />
+            value={data.password_confirm} />
         <ButtonComp
             label='Registrar'
             className="!w-[45%]"

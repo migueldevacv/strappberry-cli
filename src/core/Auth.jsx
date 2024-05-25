@@ -27,7 +27,11 @@ export class Auth {
 
     static setRole = (role) => localStorage.setItem('role', role)
 
+    static setUser = (user) => localStorage.setItem('user', JSON.stringify(user))
+
     static getToken = () => localStorage.getItem('token') || null
 
     static getRole = () => localStorage.getItem('role') || null
+
+    static getUser = () => JSON.parse(localStorage.getItem('user')) || {}
 }

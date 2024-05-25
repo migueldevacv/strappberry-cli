@@ -1,10 +1,10 @@
 import { Request } from "@core/Request";
 import { Env } from "@env/mainEnv";
 
-export class ProductService {
-    static route = `${Env.host}/products`
+export class CategoriesService {
+    static route = `${Env.host}/categories`
 
-    static getAllProducts = async () => await Request._get(this.route)
+    static getAll = async () => await Request._get(this.route)
 
     static post = async (data) => await Request._post(this.route, data)
 

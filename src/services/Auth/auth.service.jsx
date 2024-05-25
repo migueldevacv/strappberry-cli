@@ -19,9 +19,10 @@ export class AuthService {
         return this.successfulLogin(response.data)
     }
 
-    static successfulLogin = ({ token, user: { role_id } }) => {
+    static successfulLogin = ({ token, user }) => {
         Auth.setToken(token)
-        Auth.setRole(role_id)
+        Auth.setUser(user)
+        Auth.setRole(user.role_id)
         Auth.verify()
     }
 }
